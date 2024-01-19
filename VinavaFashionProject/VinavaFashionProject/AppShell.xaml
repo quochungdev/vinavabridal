@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="VinavaFashionProject.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:VinavaFashionProject"
+    xmlns:views="clr-namespace:VinavaFashionProject.Views"
+     Shell.TabBarBackgroundColor="#2AC7BF"
+     Shell.TabBarTitleColor="OrangeRed"
+     Shell.BackgroundColor="White"
+     Shell.ForegroundColor="Black"
+     Shell.TitleColor="Black"
+     Shell.NavBarIsVisible="True"
+     Shell.FlyoutBehavior="Disabled">
+
+    <TabBar>
+        <ShellContent
+         Icon="shell_home"
+         Title="Home"
+         Route="HomePage"    
+         Shell.NavBarIsVisible="False"
+         ContentTemplate="{DataTemplate views:HomePage}"
+          />
+        <ShellContent
+          Icon="shell_product"
+          Title="Product"
+          Route="ProductPage"
+          Shell.NavBarIsVisible="False"
+          ContentTemplate="{DataTemplate views:ProductPage}"
+          />
+        <ShellContent
+          Icon="shell_order"
+          Title="Order"
+          Shell.NavBarIsVisible="False"
+          Route="OrderPage"  
+          ContentTemplate="{DataTemplate views:OrderPage}"
+         />
+        <ShellContent
+          Icon="shell_collection"
+          Title="Collection"
+          Shell.NavBarIsVisible="False"
+          ContentTemplate="{DataTemplate views:CollectionPage}"
+          />
+        <ShellContent
+        Icon="shell_user"
+        Title="Member"
+        Shell.NavBarIsVisible="False"
+        ContentTemplate="{DataTemplate views:MemberPage}"
+         />
+    </TabBar>
+
+</Shell>

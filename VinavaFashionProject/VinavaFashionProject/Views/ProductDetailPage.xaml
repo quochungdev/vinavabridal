@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VinavaFashionProject.Views.ProductDetailPage"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:xct="http://schemas.microsoft.com/dotnet/2021/maui/toolkit"
+             xmlns:service="clr-namespace:VinavaFashionProject.Services"
+             xmlns:utilities="clr-namespace:VinavaFashionProject.Utilities"
+             xmlns:viewmodel="clr-namespace:VinavaFashionProject.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Shell.BackgroundColor="#2AC7BF"           
+             Shell.NavBarIsVisible="False"
+             Shell.NavBarHasShadow="True"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="White">
+    <ContentPage.Resources>
+        <utilities:StringToColor x:Key="StringToColor" />
+        <utilities:BorderThicknessConverter x:Key="BorderThicknessConverter"  />
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <AbsoluteLayout>
+        <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <StackLayout IsVisible="{Binding IsContentVisible}" Margin="0,0,0,60">
+                <!-- Carousel of product images -->
+                <CarouselView x:Name="productCarousel" HeightRequest="550" ItemsSource="{Binding ProductImages}">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <ImageButton Clicked="OnPopupClicked" 
+                                         Source="{Binding ImageSourceData}" WidthRequest="450" HeightRequest="550" Aspect="AspectFill">
+                            </ImageButton>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <StackLayout Margin="5,0,0,0">
+                    <Label Text="{Binding ProductDetailVM.Name}" TextColor="Black" HorizontalOptions="StartAndExpand" FontSize="Medium" Margin="5,10,10,10"/>
+                    <!-- Product details -->
+                    <StackLayout Orientation="Horizontal" Margin="5,0,10,10">
+                        <Label Text="{Binding ProductDetailVM.Idstring, StringFormat='MSP: {0}'}" FontSize="15" VerticalOptions="Center"/>
+                        <Label Text="{Binding ProductDetailVM.Price, StringFormat='${0}'}" TextColor="Black" FontSize="16" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+
+                    <!-- Heart and share buttons -->
+                    <StackLayout Orientation="Horizontal" Margin="5,0,10,10">
+                        <Label Text="{Binding SelectedColor, StringFormat='Color: {0}'}" TextColor="Black" Margin="0,-15,0,0" FontSize="16" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                        <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                            <dxco:SimpleButton 
+                             x:Name="heartButton"
+                            Icon="heart_32"
+                            Margin="5,0,10,0"
+                            PressedBorderColor="DarkOrange"
+                            PressedTextColor="White"
+                            DisabledTextColor="DarkGray"
+                            IconColor="Black"
+                            PressedIconColor="#2AC7BF"
+                            DisabledIconColor="Black"
+                            BackgroundColor="Transparent"
+                            DisabledBackgroundColor="Brown"
+                            CornerMode="Round"
+                            Clicked="OnHeartButtonClicked" 
+                            CornerRadius="19" />
+
+                            <ImageButton Source="share_32"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                    <!--Color-->
+                    <StackLayout Margin="0,-20,0,0">
+                        <CollectionView x:Name="Cols" ItemsSource="{Binding ListColor}" >
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Border x:Name="MyBorder" BackgroundColor="Cornsilk" Stroke="Black"
+                                            StrokeThickness="{Binding BorderThickness, Converter={StaticResource BorderThicknessConverter}}"
+                                            Padding="5,5"
+                                            HorizontalOptions="Center">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="40,40,40,40" />
+                                            </Border.StrokeShape>
+                                            <BoxView
+                                                  Color="{Binding Attribute.AttributeValue, Converter={StaticResource StringToColor}}"
+                                                  CornerRadius="50"
+                                                  WidthRequest="30"                                                
+                                                  HeightRequest="30"
+                                                  VerticalOptions="Center">
+                                                <BoxView.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="TapColorClick" />
+                                                </BoxView.GestureRecognizers>
+                                            </BoxView>
+                                        </Border>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+
+                    <Label Margin="5,10,0,10" Text="Size: " TextColor="Black" FontSize="16"  VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                    <!--Size-->
+                    <StackLayout Margin="5,0,0,0">
+                        <CollectionView ItemsSource="{Binding ListSize}" Margin="0,5,0,5" >
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame BorderColor="BurlyWood" Padding="1">
+                                        <Button x:Name="btnSize" Text="{Binding Attribute.AttributeValue}"
+                                         BorderColor="Black"
+                                         BackgroundColor="White"
+                                         TextColor="Black"
+                                         FontAttributes="Bold"
+                                         BorderWidth="{Binding BorderWidth}">
+                                            <Button.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnButtonTapped"/>
+                                            </Button.GestureRecognizers>
+                                        </Button>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+
+                    <!--Chi tiết sản phẩm-->
+                    <StackLayout Margin="0,15,0,0">
+                        <BoxView Color="Bisque" HeightRequest="2" HorizontalOptions="FillAndExpand" />
+                        <toolkit:Expander>
+                            <toolkit:Expander.Header>
+                                <StackLayout Orientation="Horizontal" BackgroundColor="#2AC7BF" Padding="15">
+                                    <Label Text="DETAIL" FontSize="Medium" TextColor="Black" HorizontalOptions="StartAndExpand" />
+                                    <Image Source="arrow" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" />
+                                </StackLayout>
+                            </toolkit:Expander.Header>
+
+                            <StackLayout Margin="8,20,8,0">
+                                <Label Text="{Binding ProductDetailVM.Description}"/>
+                            </StackLayout>
+                        </toolkit:Expander>
+                        <BoxView Color="Bisque" HeightRequest="2" HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+
+                    <!--Hướng dẫn bảo quản-->
+                    <StackLayout>
+                        <toolkit:Expander>
+                            <toolkit:Expander.Header>
+                                <StackLayout Orientation="Horizontal" BackgroundColor="#2AC7BF" Padding="15">
+                                    <Label Text="STORAGE INSTRUCTIONS" TextColor="Black" FontSize="Medium" HorizontalOptions="StartAndExpand" />
+                                    <Image Source="arrow" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" />
+                                </StackLayout>
+                            </toolkit:Expander.Header>
+                            <StackLayout Margin="8,20,8,0">
+                                <Label Text="{Binding ProductDetailVM.StorageInstructions}"/>
+                            </StackLayout>
+                        </toolkit:Expander>
+                        <BoxView Color="Bisque" HeightRequest="2" HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+
+                    <!--Phone and Chat-->
+                    <StackLayout Orientation="Horizontal" Margin="0,0,10,10">
+                        <StackLayout Orientation="Horizontal" Margin="5,0,20,0">
+                            <ImageButton Source="phone_32" />
+                            <Label Text="Hotline" VerticalOptions="Center" Margin="5,0,0,0"/>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <ImageButton Source="chat_32"/>
+                            <Label Text="Hotline" VerticalOptions="Center" Margin="5,0,0,0"/>
+                        </StackLayout>
+                        <StackLayout>
+                            <dxe:FormGroupItem ShowSeparator="True">
+                                <dxe:FormItem Text="Find the right size"
+                                  AllowTap="True"
+                                  TextMargin="35,15,4,16"
+                                  TextFontSize="15"
+                                  TextFontAttributes="None"
+                                  ShowArrow="True"
+                                  ImageSource="brightness"
+                                  ImageColor="#F9C938"
+                                  ImageHeight="36"
+                                  ImageWidth="36"
+                                  ImageMargin="4"
+                                  ImageVerticalOptions="Start">
+                                </dxe:FormItem>
+                            </dxe:FormGroupItem>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <!--Loading Page-->
+        <StackLayout
+            Margin="5,0,0,0"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+            Orientation="Vertical"
+            IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                               Color="Black"
+                               AbsoluteLayout.LayoutFlags="PositionProportional" 
+                               AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1" />
+            <Label
+                Text="Loading..."
+                TextColor="Black"
+                VerticalOptions="Center" />
+        </StackLayout>
+
+        <!--  giao diện dưới trang -->
+        <StackLayout IsVisible="{Binding IsContentVisible}" 
+            Margin="5,0,0,0"
+            BackgroundColor="#2AC7BF"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            AbsoluteLayout.LayoutBounds="0,1,500,-1"
+            Orientation="Vertical"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="End">
+            <BoxView Color="Bisque" HeightRequest="2" HorizontalOptions="FillAndExpand" />
+            <Grid HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- StackLayout chứa nút "-" và "+" -->
+                <StackLayout Grid.Column="0" Orientation="Horizontal" Margin="15,0,0,0" HeightRequest="50" WidthRequest="120" HorizontalOptions="Start" BackgroundColor="White">
+                    <dxco:SimpleButton 
+                    Command="{Binding DecreaseQuantityCommand}"
+                    Text="-"
+                    FontSize="20"
+                    FontAttributes="None"
+                    TextColor="Black"
+                    PressedBorderColor="DarkOrange"
+                    PressedTextColor="White"
+                    DisabledTextColor="DarkGray"
+                    IconColor="Black"
+                    PressedIconColor="#2AC7BF"
+                    DisabledIconColor="Black"
+                    BackgroundColor="Transparent"
+                    DisabledBackgroundColor="Brown"
+                    CornerMode="Round"
+                    CornerRadius="19" />
+                    <Label Text="{Binding Quantity}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" />
+                    <dxco:SimpleButton 
+                    Command="{Binding IncreaseQuantityCommand}"
+                    Text="+"
+                    FontSize="20"
+                    FontAttributes="None"
+                    TextColor="Black"
+                    PressedBorderColor="DarkOrange"
+                    PressedTextColor="White"
+                    DisabledTextColor="DarkGray"
+                    IconColor="Black"
+                    PressedIconColor="Cornsilk"
+                    DisabledIconColor="Black"
+                    BackgroundColor="Transparent"
+                    DisabledBackgroundColor="Brown"
+                    CornerMode="Round"
+                    CornerRadius="19" />
+                </StackLayout>
+
+                <!-- StackLayout chứa nút "Add to Cart" -->
+                <StackLayout Grid.Column="1" Margin="-70,0,0,0" HorizontalOptions="Start" Orientation="Vertical" >
+                    <dxco:SimpleButton WidthRequest="250" Margin="10" Text="ADD TO CART" 
+                Command="{Binding AddToCartCommand}"
+                BorderThickness="2"
+                BorderColor="Black"
+                PressedBorderColor="DarkOrange"
+                DisabledBorderColor="DarkGray"
+                TextColor="White"
+                PressedTextColor="White"
+                DisabledTextColor="DarkGray"
+                IconColor="Black"
+                PressedIconColor="White"
+                DisabledIconColor="DarkGray"
+                BackgroundColor="Black"
+                DisabledBackgroundColor="Brown"
+                PressedBackgroundColor="Gray"
+                CornerMode="Round"
+                CornerRadius="3" />
+                </StackLayout>
+            </Grid>
+
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

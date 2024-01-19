@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VinavaFashionProject.Views.OrderDetailPage"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             BackgroundColor="White"
+             Title="Order Detail">
+    <ScrollView>
+        <VerticalStackLayout>
+            <!--Order-->
+            <StackLayout Margin="10">
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="ORDER ID: "/>
+                    <Label TextColor="Black" Text="{Binding OrderVM.Id}"/>
+                </StackLayout>
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="Order Date: "/>
+                    <Label TextColor="Black" Text="{Binding OrderVM.OrderDate}"/>
+                </StackLayout>
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="Status: "/>
+                    <Label TextColor="Black" Text="{Binding OrderVM.Status}"/>
+                </StackLayout>
+            </StackLayout>
+            <BoxView HeightRequest="1" WidthRequest="500" Margin="0,7" BackgroundColor="BurlyWood" VerticalOptions="EndAndExpand" />
+
+            <!--Address-->
+            <StackLayout  Margin="10">
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="RECEIVER'S ADDRESS: "/>
+                    <Label TextColor="Black" Text="{Binding OrderVM.Id}"/>
+                </StackLayout>
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="{Binding OrderVM.Address.FullName}"/>
+                </StackLayout>
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="{Binding OrderVM.Address.PhoneNumber}"/>
+                </StackLayout>
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="{Binding OrderVM.Address.AddressCombine}"/>
+                </StackLayout>
+            </StackLayout>
+            <BoxView HeightRequest="1" WidthRequest="500" Margin="0,7" BackgroundColor="BurlyWood" VerticalOptions="EndAndExpand" />
+
+            <!--Payment Method-->
+            <StackLayout  Margin="10">
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="PAYMENT METHOD"/>
+                </StackLayout>
+                <StackLayout Margin="0,2" Orientation="Horizontal">
+                    <Label Text="{Binding OrderVM.PaymentMethod}"/>
+                </StackLayout>
+            </StackLayout>
+            <BoxView HeightRequest="1" WidthRequest="500" Margin="0,7" BackgroundColor="BurlyWood" VerticalOptions="EndAndExpand" />
+
+            <!--Order & Product-->
+            <CollectionView x:Name="mCollectionView" ItemsSource="{Binding OrderVM.OrderDetails}" >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal" Margin="10">
+                            <Image Source="{Binding Product.ImageSourceData}" 
+                                   HeightRequest="110" WidthRequest="100"
+                                   HorizontalOptions="Start" />
+                            <StackLayout Margin="10,0,0,0" Padding="0,5">
+                                <Label Text="{Binding Product.Name}" TextColor="Black"/>
+                                <Label Text="{Binding Product.Price, StringFormat='Price: ${0:F1}'}"/>
+                                <Label Text="{Binding Color, StringFormat='Color: {0:F1}'}"/>
+                                <Label Text="{Binding Size, StringFormat='Size: {0:F1}'}"/>
+                                <Label Text="{Binding Quantity, StringFormat='Quantity: {0}'}"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <BoxView HeightRequest="1" WidthRequest="500" Margin="0,7" BackgroundColor="BurlyWood" VerticalOptions="EndAndExpand" />
+            <!--TotalAmount-->
+            <StackLayout Margin="10">
+                <StackLayout Margin="0,0,0,10" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="AMOUNT: "/>
+                </StackLayout>
+                <StackLayout Margin="0,0,0,10" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="Shipping Fee: "/>
+                    <Label TextColor="Black" Text="{Binding OrderVM.ShippingFee}"/>
+                </StackLayout>
+                <StackLayout Margin="0,0,0,10" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="Provisional: "/>
+                    <Label TextColor="Black" Text="{Binding OrderVM.TotalAmount, StringFormat='${0}'}"/>
+                </StackLayout>
+                <StackLayout Margin="0,0,0,10" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="Discount: "/>
+                    <Label TextColor="Black" Text="-$0"/>
+                </StackLayout>
+                <StackLayout Margin="0,0,0,10" Orientation="Horizontal">
+                    <Label TextColor="Black" Text="Total: "/>
+                    <Label TextColor="Black" Text="{Binding OrderVM.TotalAmount, StringFormat='${0}'}"/>
+                </StackLayout>
+            </StackLayout>
+            <BoxView HeightRequest="1" WidthRequest="500" Margin="0,7" BackgroundColor="BurlyWood" VerticalOptions="EndAndExpand" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

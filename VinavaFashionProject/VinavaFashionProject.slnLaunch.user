@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Name": "VinavaFashionProject\\VinavaFashionProject.csproj",
+        "Action": "Start"
+      },
+      {
+        "Name": "VinavaFashionProject.Api\\VinavaFashionProject.Api.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

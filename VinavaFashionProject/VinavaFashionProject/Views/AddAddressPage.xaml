@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:VinavaFashionProject.ViewModels"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             x:Class="VinavaFashionProject.Views.AddAddressPage"
+             Shell.TabBarIsVisible="False"
+             Shell.BackgroundColor="#2AC7BF"
+             Title="Add new address">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout BackgroundColor="White">
+                <StackLayout Margin="8,20,8,0">
+                    <dxe:TextEdit x:Name="Username"
+               Text="{Binding FullName}"
+               BottomTextFontAttributes="Italic"
+               BottomTextFontSize="14"
+               BottomTextTopIndent="8"
+               ErrorColor="Brown"
+               ErrorText="Username cannot be empty"
+               PlaceholderText="Full Name"
+               ReserveBottomTextLine="True"/>
+
+                    <dxe:TextEdit
+                Text="{Binding PhoneNumber}"
+                BottomTextFontAttributes="Italic"
+                BottomTextFontSize="14"
+                BottomTextTopIndent="8"
+                ErrorColor="Brown"
+                ErrorText="Username cannot be empty"
+                PlaceholderText="Phone Number"
+                ReserveBottomTextLine="True"/>
+
+                    <dxe:TextEdit
+                Text="{Binding Ward}"
+                BottomTextFontAttributes="Italic"
+                BottomTextFontSize="14"
+                BottomTextTopIndent="8"
+                ErrorColor="Brown"
+                ErrorText="Username cannot be empty"
+                PlaceholderText="Ward"
+                ReserveBottomTextLine="True"/>
+
+                    <dxe:TextEdit
+                Text="{Binding City}"
+                BottomTextFontAttributes="Italic"
+                BottomTextFontSize="14"
+                BottomTextTopIndent="8"
+                ErrorColor="Brown"
+                ErrorText="Username cannot be empty"
+                PlaceholderText="City"
+                ReserveBottomTextLine="True"/>
+
+                    <dxe:TextEdit
+                Text="{Binding DetailAddress}"
+                BottomTextFontAttributes="Italic"
+                BottomTextFontSize="14"
+                BottomTextTopIndent="8"
+                ErrorColor="Brown"
+                ErrorText="Username cannot be empty"
+                PlaceholderText="Detail Address"
+                ReserveBottomTextLine="True"/>
+                </StackLayout>
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <dxco:SimpleButton Text = "SAVE ADDRESS"  Grid.Row="1"
+                           Command="{Binding AddAddressCommand}"
+                         BorderThickness="2"
+                         BorderColor="Beige"
+                         PressedBorderColor="Beige"
+                         DisabledBorderColor="DarkGray"
+                         TextColor="Beige"
+                         PressedTextColor="White"
+                         DisabledTextColor="DarkGray"
+                         IconColor="Beige"
+                         PressedIconColor="White"
+                         DisabledIconColor="DarkGray"
+                         BackgroundColor="Black"
+                         DisabledBackgroundColor="Beige"
+                         PressedBackgroundColor="Gray"
+                         CornerMode = "Round"        
+                         CornerRadius="10"
+                            />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             x:Class="VinavaFashionProject.Views.AccountInfoPage"
+             Title="Account Information"
+             Shell.PresentationMode="Animated">
+    <ScrollView>
+        <VerticalStackLayout BackgroundColor="White">
+            <StackLayout>
+                <!--Thông tin cá nhân-->
+                <toolkit:Expander>
+                    <toolkit:Expander.Header>
+                        <StackLayout Orientation="Horizontal" BackgroundColor="#2AC7BF" Padding="20" Margin="0,5,0,0">
+                            <Label Text="Account Infomation" FontSize="Medium" HorizontalOptions="StartAndExpand" />
+                            <Image Source="arrow" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" />
+                        </StackLayout>
+                    </toolkit:Expander.Header>
+
+                    <StackLayout Margin="8,20,8,0">
+                        <!--<dxe:TextEdit x:Name="Username"
+                           Text="{Binding Username}"
+                           StartIcon="user_32"
+                           LabelText="Username"
+                           BottomTextFontAttributes="Italic"
+                           BottomTextFontSize="14"
+                           BottomTextTopIndent="8"
+                           ErrorColor="Brown"
+                           ErrorText="Username cannot be empty"
+                           PlaceholderText="Username"
+                           ReserveBottomTextLine="True"/>-->
+
+                        <dxe:TextEdit x:Name="FullName"
+                           Text="{Binding FullName}"
+                           StartIcon="user_32"
+                           LabelText="FullName"
+                           BottomTextFontAttributes="Italic"
+                           BottomTextFontSize="14"
+                           BottomTextTopIndent="8"
+                           ErrorColor="Brown"
+                           ErrorText="FullName cannot be empty"
+                           PlaceholderText="FullName"
+                           ReserveBottomTextLine="True"/>
+
+                        <HorizontalStackLayout>
+                            <dxe:TextEdit
+                           LabelText="Phone"
+                           Text="{Binding PhoneNumber}"
+                           StartIcon="phone_32"
+                           Mask="(000) 000-0000"
+                           ErrorText="Incorrect phone number"
+                           Keyboard="Telephone"
+                           PlaceholderText="Enter phone number"/>
+
+                            <dxe:ComboBoxEdit 
+                          LabelText="Gender"
+                          CornerRadius="10"
+                          Margin="10,0,0,0"
+                          StartIcon="gender_32"
+                          DropDownBackgroundColor="Beige"
+                          DropDownSelectedItemBackgroundColor="Brown"
+                          DropDownSelectedItemTextColor="White"
+                          SelectedItem="{Binding Gender}">
+                                <dxe:ComboBoxEdit.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>Male</x:String>
+                                        <x:String>Female</x:String>
+                                    </x:Array>
+                                </dxe:ComboBoxEdit.ItemsSource>
+                            </dxe:ComboBoxEdit>
+                        </HorizontalStackLayout>
+
+
+                        <dxe:TextEdit x:Name="Email"
+                         LabelText="Email"
+                         StartIcon="email_32" 
+                         Text="{Binding Email}"             
+                         BottomTextFontAttributes="Italic"
+                         BottomTextFontSize="14"
+                         BottomTextTopIndent="8"
+                         ErrorColor="Brown"
+                         ErrorText="Password cannot be empty"
+                         PlaceholderText="Email"
+                         ReserveBottomTextLine="True"/>
+
+                        <dxe:DateEdit
+                         LabelText="Birth date"
+                         StartIcon="birth_32" 
+                         Date="{Binding DateOfBirth}"
+                         TextHorizontalAlignment="End"
+                         IsDateIconVisible="False"
+                         ClearIconVisibility="Auto"
+                         DisplayFormat="d"
+                         BottomTextFontSize="14"
+                         BottomTextTopIndent="8"
+                         PlaceholderText="Enter birth date"/>
+
+                        <dxe:TextEdit x:Name="Address"
+                        LabelText="Address"
+                        StartIcon="address_32" 
+                        Text="{Binding Address}"             
+                        BottomTextFontAttributes="Italic"
+                        BottomTextFontSize="14"
+                        BottomTextTopIndent="8"
+                        ErrorColor="Brown"
+                        ErrorText="Password cannot be empty"
+                        PlaceholderText="Address"
+                        ReserveBottomTextLine="True"/>
+
+                        <dxco:SimpleButton Text = "UPDATE INFORMATION" 
+                           Icon = "info" 
+                           BorderThickness="2"
+                           BorderColor="Beige"
+                           PressedBorderColor="Beige"
+                           DisabledBorderColor="DarkGray"
+                           TextColor="Beige"
+                           PressedTextColor="White"
+                           DisabledTextColor="DarkGray"
+                           IconColor="Beige"
+                           PressedIconColor="White"
+                           DisabledIconColor="DarkGray"
+                           BackgroundColor="Black"
+                           DisabledBackgroundColor="Beige"
+                           PressedBackgroundColor="Gray"
+                           CornerMode = "Round"        
+                           CornerRadius="10"
+                           Command="{Binding UpdatedUserCommand}"
+                           />
+                    </StackLayout>
+                </toolkit:Expander>
+
+
+                <!--Đổi mật khẩu-->
+                <toolkit:Expander>
+                    <toolkit:Expander.Header>
+                        <StackLayout Orientation="Horizontal" BackgroundColor="#2AC7BF" Padding="20" Margin="0,5,0,0">
+                            <Label Text="Change Password" FontSize="Medium" HorizontalOptions="StartAndExpand" />
+                            <Image Source="arrow" HeightRequest="20" WidthRequest="20" HorizontalOptions="End" />
+                        </StackLayout>
+                    </toolkit:Expander.Header>
+                    <VerticalStackLayout>
+                        <dxe:PasswordEdit
+                         LabelText="Old Password"
+                         Text="{Binding OldPassword}"
+                         ErrorText="The password should contain more than 5 characters, 
+                             have at least one uppercase and one lowercase letter, and one number."
+                         PlaceholderText="Enter old password"/>
+                        <dxe:PasswordEdit
+                         LabelText="New Password"
+                         Text="{Binding NewPassword}"
+                         ErrorText="The password should contain more than 5 characters, 
+                             have at least one uppercase and one lowercase letter, and one number."
+                         PlaceholderText="Enter new password"/>
+                        <dxe:PasswordEdit
+                         LabelText="New Password"
+                         Text="{Binding EnterNewPassword}"
+                         ErrorText="The password should contain more than 5 characters, 
+                             have at least one uppercase and one lowercase letter, and one number."
+                         PlaceholderText="Enter a new password"/>
+
+                        <dxco:SimpleButton Text = "UPDATE INFORMATION" 
+                       Icon = "info" 
+                       BorderThickness="2"
+                       BorderColor="Beige"
+                       PressedBorderColor="Beige"
+                       DisabledBorderColor="DarkGray"
+                       TextColor="Beige"
+                       PressedTextColor="White"
+                       DisabledTextColor="DarkGray"
+                       IconColor="Beige"
+                       PressedIconColor="White"
+                       DisabledIconColor="DarkGray"
+                       BackgroundColor="Black"
+                       DisabledBackgroundColor="Beige"
+                       PressedBackgroundColor="Gray"
+                       CornerMode = "Round"        
+                       CornerRadius="10"
+                       Command="{Binding ChangePasswordCommand}"
+                       />
+                    </VerticalStackLayout>
+                </toolkit:Expander>
+
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

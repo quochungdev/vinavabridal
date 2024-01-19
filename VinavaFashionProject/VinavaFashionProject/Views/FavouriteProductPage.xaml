@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VinavaFashionProject.Views.FavouriteProductPage"
+             BackgroundColor="White"
+             Shell.BackgroundColor="#2AC7BF"
+             Shell.TabBarIsVisible="False"
+             Title="Favourite Product">
+    <VerticalStackLayout>
+        <CollectionView x:Name="mCollectionView" ItemsSource="{Binding FavouriteProducts}" Margin="0,5,0,5" >
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Vertical" Margin="10,0">
+                        <StackLayout  Orientation="Horizontal">
+                            <StackLayout WidthRequest="340" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                <Image Source="{Binding Product.ImageSourceData}" HeightRequest="100" WidthRequest="90" />
+                                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                                    <Label TextColor="Black" Text="{Binding Product.Name}">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                              Tapped="OnTappedProductDetail"
+                                              NumberOfTapsRequired="1"/>
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <Image HorizontalOptions="Start" Margin="0,10" Source="heart_click_32" HeightRequest="20" WidthRequest="20" />
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout  Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                <Label TextColor="Black" Text="{Binding Product.Price, StringFormat='${0}'}"/>
+                            </StackLayout>
+                        </StackLayout>
+                        <BoxView HeightRequest="1" WidthRequest="500" Margin="0,7" BackgroundColor="BurlyWood" VerticalOptions="EndAndExpand" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

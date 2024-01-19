@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:DataType="viewmodel:RegisterPageViewModel"
+             x:Class="VinavaFashionProject.Views.RegisterPage"
+             xmlns:viewmodel="clr-namespace:VinavaFashionProject.ViewModels"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             Title="RegisterPage">
+    <ScrollView>
+        <VerticalStackLayout BackgroundColor="Cornsilk">
+            <StackLayout BackgroundColor="RoyalBlue" HeightRequest="100">
+                <Frame CornerRadius="50" WidthRequest="100" HeightRequest="100" Margin="0,20,0,0" Padding="0" BorderColor="Black">
+                    <Image Source="user.png" WidthRequest="80" HeightRequest="80" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </Frame>
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical" Spacing="10" Margin="0,20,0,0">
+                <Label Text="Welcome to Vinava Bridal" TextColor="Black" Margin="0,0,0,20" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center" VerticalTextAlignment="Center" />
+            </StackLayout>
+
+            <!--<HorizontalStackLayout>
+                <Button Text="Sign In" WidthRequest="219" HeightRequest="50" Margin="1,0,5,0" BackgroundColor="Transparent" TextColor="Black" BorderColor="Black" BorderWidth="2" />
+                <Button Text="Sign Up" WidthRequest="219" HeightRequest="50" Margin="5,0,0,0" BackgroundColor="Transparent" TextColor="Black" BorderColor="Black" BorderWidth="2"/>
+            </HorizontalStackLayout>-->
+
+            <StackLayout Margin="8,5,8,0">
+                <dxe:TextEdit x:Name="Username"
+                  Text="{Binding Username}"
+                  BottomTextFontAttributes="Italic"
+                  BottomTextFontSize="14"
+                  BottomTextTopIndent="8"
+                  ErrorColor="Brown"
+                  ErrorText="Username cannot be empty"
+                  PlaceholderText="Username"
+                  ReserveBottomTextLine="True"/>
+
+                <dxe:PasswordEdit
+                LabelText="Password"
+                Text="{Binding Password}"
+                HelpText="*Required"
+                ErrorText="The password should contain more than 5 characters, 
+                    have at least one uppercase and one lowercase letter, and one number."
+                PlaceholderText="Enter password"/>
+
+                <dxe:TextEdit x:Name="FullName"
+                  Text="{Binding FullName}"
+                  BottomTextFontAttributes="Italic"
+                  ErrorColor="Brown"
+                  ErrorText="FullName cannot be empty"
+                  PlaceholderText="FullName"
+                  ReserveBottomTextLine="True"/>
+
+                <dxe:TextEdit
+                LabelText="Phone"
+                Text="{Binding PhoneNumber}"
+                Mask="(000) 000-0000"
+                ErrorText="Incorrect phone number"
+                HelpText="Do not include a country code"
+                Keyboard="Telephone"
+                PlaceholderText="Enter phone number"/>
+
+                <dxe:TextEdit x:Name="Email"
+                Text="{Binding Email}"             
+                BottomTextFontAttributes="Italic"
+                BottomTextFontSize="14"
+                BottomTextTopIndent="8"
+                ErrorColor="Brown"
+                ErrorText="Password cannot be empty"
+                PlaceholderText="Email"
+                ReserveBottomTextLine="True"/>
+
+                <dxe:DateEdit
+                LabelText="Birth date"
+                Date="{Binding DateOfBirth, Mode=TwoWay}"
+                TextHorizontalAlignment="End"
+                IsDateIconVisible="False"
+                ClearIconVisibility="Auto"
+                DisplayFormat="d"
+                PlaceholderText="Enter birth date"/>
+            </StackLayout>
+
+            <dxco:SimpleButton Text = "SIGN UP" 
+               Icon = "info" Margin="0,10,0,0"
+               BorderThickness="2"
+               BorderColor="Beige"
+               PressedBorderColor="Beige"
+               DisabledBorderColor="DarkGray"
+               TextColor="Beige"
+               PressedTextColor="White"
+               DisabledTextColor="DarkGray"
+               IconColor="Beige"
+               PressedIconColor="White"
+               DisabledIconColor="DarkGray"
+               BackgroundColor="Black"
+               DisabledBackgroundColor="Beige"
+               PressedBackgroundColor="Gray"
+               CornerMode = "Round"        
+               CornerRadius="10"
+               Command="{Binding RegisterCommand}"
+               />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

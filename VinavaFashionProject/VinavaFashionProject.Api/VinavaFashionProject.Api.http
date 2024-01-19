@@ -1,0 +1,60 @@
+﻿# @VinavaFashionProject.Api_HostAddress = http://localhost:5075
+@VinavaFashionProject.Api_HostAddress = http://localhost:84
+
+###
+
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+###
+
+###
+
+POST {{VinavaFashionProject.Api_HostAddress}}/api/user/create
+Content-Type: application/json
+
+{
+  "Username": "leuyet",
+  "Password": "123",
+  "Email": "letuyet@email.com",
+  "FullName": "Le Van Tuyet",
+  "dateOfBirth": "2023-11-21T10:11:44.606Z",
+  "PhoneNumber": "1234567890",
+  "CreatedBy": "Admin"
+}
+
+
+###
+
+GET {{VinavaFashionProject.Api_HostAddress}}/api/user/login/user123/123456
+
+###
+
+GET {{VinavaFashionProject.Api_HostAddress}}/api/user/1
+
+###
+
+POST {{VinavaFashionProject.Api_HostAddress}}/api/user
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+GET {{VinavaFashionProject.Api_HostAddress}}/api/user
+
+###
+
+POST {{VinavaFashionProject.Api_HostAddress}}/api/user/create
+Content-Type: application/json
+
+{
+  //User
+}
+
+###

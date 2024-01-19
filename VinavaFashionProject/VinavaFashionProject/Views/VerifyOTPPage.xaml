@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             x:Class="VinavaFashionProject.Views.VerifyOTPPage"
+             Title="Account Authentication">
+    <ScrollView>
+        <VerticalStackLayout BackgroundColor="White">
+            <StackLayout BackgroundColor="#2AC7BF" HeightRequest="100">
+                <Frame CornerRadius="50" WidthRequest="100" HeightRequest="100" Margin="0,20,0,0" Padding="0" BorderColor="Black">
+                    <Image Source="user.png" WidthRequest="80" HeightRequest="80" VerticalOptions="Center" HorizontalOptions="Center"/>
+                </Frame>
+            </StackLayout>
+
+            <Label Text="Account Authentication" FontSize="Medium" Margin="0,40,0,0" HorizontalOptions="Center" FontAttributes="Bold"/>
+
+            <StackLayout HorizontalOptions="Center" Margin="20">
+                <Label FontSize="15" Text="Please enter the OTP code sent to " />
+                <Label FontSize="15" HorizontalTextAlignment="Center" Text="{Binding Email, StringFormat='your email {0}'}" />
+            </StackLayout>
+
+            <!-- Ô nhập liệu mã OTP -->
+            <StackLayout x:Name="otpStackLayout" Orientation="Horizontal" Margin="0,0,0,50" HorizontalOptions="Center">
+                <Entry Text="{Binding Otp[0], Mode=TwoWay}" WidthRequest="60" FontSize="Large" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric" TextChanged="OnOTPChanged" />
+                <Entry Text="{Binding Otp[1], Mode=TwoWay}" WidthRequest="60" FontSize="Large" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric" TextChanged="OnOTPChanged" />
+                <Entry Text="{Binding Otp[2], Mode=TwoWay}" WidthRequest="60" FontSize="Large" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric" TextChanged="OnOTPChanged" />
+                <Entry Text="{Binding Otp[3], Mode=TwoWay}" WidthRequest="60" FontSize="Large" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric" TextChanged="OnOTPChanged" />
+                <Entry Text="{Binding Otp[4], Mode=TwoWay}" WidthRequest="60" FontSize="Large" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric" TextChanged="OnOTPChanged" />
+                <Entry Text="{Binding Otp[5], Mode=TwoWay}" WidthRequest="60" FontSize="Large" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric" TextChanged="OnOTPChanged" />
+            </StackLayout>
+
+            <dxco:SimpleButton Text = "Verify" 
+               Icon = "info" 
+               BorderThickness="2"
+               BorderColor="Beige"
+               PressedBorderColor="Beige"
+               DisabledBorderColor="DarkGray"
+               TextColor="Beige"
+               PressedTextColor="White"
+               DisabledTextColor="DarkGray"
+               IconColor="Beige"
+               PressedIconColor="White"
+               DisabledIconColor="DarkGray"
+               BackgroundColor="Black"
+               DisabledBackgroundColor="Beige"
+               PressedBackgroundColor="Gray"
+               CornerMode = "Round"        
+               CornerRadius="10"
+               Command="{Binding VerifyCommand}"
+               />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

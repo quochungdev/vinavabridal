@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VinavaFashionProject.Views.CartPage"
+             xmlns:viewmodel="clr-namespace:VinavaFashionProject.ViewModels"
+             xmlns:util="clr-namespace:VinavaFashionProject.Utilities"
+             xmlns:compat="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             BackgroundColor="White"
+             Shell.TabBarIsVisible="False"
+             Shell.BackgroundColor="#2AC7BF"
+             Title="Shopping Cart">
+    <ContentPage.Resources>
+        <util:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollView Grid.Row="0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,1,1">
+             <CollectionView x:Name="mCollectionView" ItemsSource="{Binding OrderDetails}" Margin="0,5,0,5" >
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Vertical">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <AbsoluteLayout Grid.Column="0">
+                                        <Image Source="{Binding Product.ImageSourceData}"
+                                               HeightRequest="110" WidthRequest="100"
+                                               HorizontalOptions="Start"/>
+                                        <Button  Command="{Binding Path= BindingContext.DeleteOrderDetailCommand,Source={Reference mCollectionView }}"  
+                                                CommandParameter="{Binding .}"  
+                                                Opacity="0.6" Text="X" TextColor="Black" 
+                                                FontSize="16" Padding="0,0,0,0" CornerRadius="30"
+                                                WidthRequest="35" HeightRequest="35"
+                                                BorderWidth="1" 
+                                                BorderColor="Gray" HorizontalOptions="Center" 
+                                                VerticalOptions="Center" BackgroundColor="White"
+                                                AbsoluteLayout.LayoutBounds="0.05, 0.5, 40, 40" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+
+                                    </AbsoluteLayout>
+                                    <StackLayout Grid.Column="1" Margin="5,3,0,0" >
+                                            <Label WidthRequest="400" TextColor="Black" Text="{Binding Product.Name}"/>
+                                            <Label Padding="0,3,0,0" TextColor="Black" Text="{Binding Price, StringFormat='${0}'}" />
+                                    <!-- Thêm ba cột: Màu, Size, Số lượng -->
+                                        <Grid ColumnSpacing="10" Margin="0,10,0,0" >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <!-- Cột Màu -->
+                                            <StackLayout Grid.Column="0" Orientation="Horizontal">
+                                                <StackLayout>
+                                                    <Label Text="Color" FontAttributes="Bold" />
+                                                    <AbsoluteLayout>
+                                                        <!-- Đặt Picker trong một AbsoluteLayout -->
+                                                        <Picker
+                                                           AbsoluteLayout.LayoutBounds="0, 0, 2, -1"
+                                                           AbsoluteLayout.LayoutFlags="WidthProportional"
+                                                           ItemsSource="{Binding ColorAttributes}"
+                                                           SelectedItem="{Binding SelectedColor}"
+                                                           SelectedIndexChanged="SelectedColorChanged"
+                                                           ItemDisplayBinding="{Binding Attribute.AttributeValue}" />
+                                                        <!-- Các phần khác của giao diện ở đây -->
+                                                    </AbsoluteLayout>
+                                                </StackLayout>
+                                                <BoxView Color="BurlyWood" WidthRequest="1" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand"/>
+                                            </StackLayout>
+
+                                            <!-- Cột Size -->
+                                            <StackLayout Grid.Column="1"  Orientation="Horizontal">
+                                                <StackLayout>
+                                                    <Label Text="Size" FontAttributes="Bold" />
+                                                    <Picker 
+                                                     ItemsSource="{Binding SizeAttributes}"
+                                                     SelectedItem="{Binding SelectedSize}"
+                                                     SelectedIndexChanged="SelectedSizeChanged"       
+                                                     ItemDisplayBinding="{Binding Attribute.AttributeValue}" />
+                                                </StackLayout>
+                                                <BoxView Color="BurlyWood" WidthRequest="1" VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand"/>
+                                            </StackLayout>
+
+                                            <!-- Cột Số lượng -->
+                                            <StackLayout Grid.Column="2"  Orientation="Horizontal">
+                                                <StackLayout>
+                                                    <Label Text="Quantity" FontAttributes="Bold" />
+                                                    <StackLayout Orientation="Horizontal" >
+                                                        <dxco:SimpleButton 
+                                                      Command="{Binding Path= BindingContext.DecreaseQuantityCommand,Source={Reference mCollectionView }}"  
+                                                      CommandParameter="{Binding .}"  
+                                                      Text="-"
+                                                      FontSize="20"
+                                                      FontAttributes="None"
+                                                      TextColor="Black"
+                                                      PressedBorderColor="DarkOrange"
+                                                      PressedTextColor="White"
+                                                      DisabledTextColor="DarkGray"
+                                                      IconColor="Black"
+                                                      PressedIconColor="Cornsilk"
+                                                      DisabledIconColor="Black"
+                                                      BackgroundColor="Transparent"
+                                                      DisabledBackgroundColor="Brown"
+                                                      CornerMode="Round"
+                                                      CornerRadius="19" />
+                                                        <Label Text="{Binding Quantity}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" />
+                                                        <dxco:SimpleButton  
+                                                      Command="{Binding Path= BindingContext.IncreaseQuantityCommand,Source={Reference mCollectionView }}"  
+                                                      CommandParameter="{Binding .}"  
+                                                      Text="+"
+                                                      FontSize="20"
+                                                      FontAttributes="None"
+                                                      TextColor="Black"
+                                                      PressedBorderColor="DarkOrange"
+                                                      PressedTextColor="White"
+                                                      DisabledTextColor="DarkGray"
+                                                      IconColor="Black"
+                                                      PressedIconColor="Cornsilk"
+                                                      DisabledIconColor="Black"
+                                                      BackgroundColor="Transparent"
+                                                      DisabledBackgroundColor="Brown"
+                                                      CornerMode="Round"
+                                                      CornerRadius="19" />
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Grid>
+                                    </StackLayout>
+                                </Grid>
+
+                                <BoxView HeightRequest="1" Margin="0,7" BackgroundColor="BurlyWood" VerticalOptions="EndAndExpand" />
+                            </StackLayout>
+                        </DataTemplate>
+
+                    </CollectionView.ItemTemplate>
+             </CollectionView>
+        </ScrollView>
+
+        <!--Loading Page-->
+        <StackLayout
+          Margin="5,0,0,0"
+          Orientation="Vertical"
+          IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                         Color="Black"
+                         AbsoluteLayout.LayoutFlags="PositionProportional" 
+                         AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1" />
+            <Label
+          Text="Loading..."
+          TextColor="Black"
+          VerticalOptions="Center" />
+        </StackLayout>
+
+        <StackLayout  Grid.Row="1" BackgroundColor="#2AC7BF" 
+                 IsVisible="{Binding IsCartEmpty, Converter={StaticResource InverseBooleanConverter}}"
+                 Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Orientation="Horizontal">
+                <Label FontSize="15" Padding="0,8" TextColor="Black" HorizontalOptions="StartAndExpand" Text="Total product cost: " />
+                <Label FontSize="15" Padding="0,8" TextColor="Black" HorizontalOptions="EndAndExpand" Text="{Binding TotalProduct, StringFormat='${0}'}" />
+            </StackLayout>
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                <Label FontSize="15" Padding="0,8" TextColor="Black" HorizontalOptions="StartAndExpand" Text="Transport fee: " />
+                <Label FontSize="15" Padding="0,8" TextColor="Black" HorizontalOptions="EndAndExpand" Text="{Binding TransportFee, StringFormat='${0}'}" />
+            </StackLayout>
+                <StackLayout Grid.Row="2" BackgroundColor="#2AC7BF" Orientation="Horizontal" VerticalOptions="Center">
+                <RadioButton
+                 GroupName="rdbFee" CheckedChanged="OnInTheCountryCheckedChanged" Content="In the country (Vietnam)" BackgroundColor="#2AC7BF" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                <RadioButton Margin="15,0"
+                GroupName="rdbFee" CheckedChanged="OnForeignCheckedChanged" Content="Foreign" BackgroundColor="#2AC7BF" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+            </StackLayout>
+            <StackLayout Grid.Row="3" Orientation="Horizontal">
+                <Label FontSize="15" Padding="0,8" TextColor="Black" HorizontalOptions="StartAndExpand" Text="Preferential: " />
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Label FontSize="13.5" Padding="0,8" FontAttributes="Italic" TextColor="yellow" HorizontalOptions="CenterAndExpand" Text="Customers who buy more than 2 products will receive free shipping" />
+                </StackLayout>
+            </StackLayout>
+            <BoxView Grid.Row="4" HeightRequest="1" Margin="0,7" BackgroundColor="White" VerticalOptions="EndAndExpand" />
+            <StackLayout Grid.Row="5" Orientation="Horizontal">
+                <Label FontSize="15" Padding="0,8" TextColor="Black" HorizontalOptions="StartAndExpand" Text="Total payment: " />
+                <Label FontSize="15" Padding="0,8" TextColor="Black" HorizontalOptions="EndAndExpand" Text="{Binding TotalAmount, StringFormat='${0}'}" />
+            </StackLayout>
+
+            <dxco:SimpleButton Text="Order Now"  Grid.Row="6"
+            Command="{Binding GoToPaymentCommand}"       
+            BorderThickness="2"
+            BorderColor="Black"
+            PressedBorderColor="DarkOrange"
+            DisabledBorderColor="DarkGray"
+            TextColor="White"
+            PressedTextColor="White"
+            DisabledTextColor="DarkGray"
+            IconColor="Black"
+            PressedIconColor="White"
+            DisabledIconColor="DarkGray"
+            BackgroundColor="Black"
+            DisabledBackgroundColor="Brown"
+            PressedBackgroundColor="Gray"
+            CornerMode="Round"
+            CornerRadius="3" />
+            </Grid>
+        </StackLayout>
+
+        <!-- Kiểm tra nếu giỏ hàng không có sản phẩm -->
+        <StackLayout IsVisible="False" 
+                     compat:RelativeLayout.XConstraint="{compat:ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.5, Constant=-120}"
+                     compat:RelativeLayout.YConstraint="{compat:ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.5, Constant=-150}">
+            <StackLayout.Style>
+                <Style TargetType="StackLayout">
+                    <Style.Triggers>
+                        <DataTrigger TargetType="StackLayout"
+                             Binding="{Binding IsCartEmpty, Mode=OneWay}"
+                             Value="True">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackLayout.Style>
+            <!-- Nếu không có sản phẩm -->
+            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Image Source="shopping_cart" HeightRequest="150" WidthRequest="150" />
+                <Label Text="Your shopping cart is empty" FontSize="18" HorizontalOptions="Center" Margin="0,10,0,0" />
+                <Label Text="Please add product to cart" FontSize="16" HorizontalOptions="Center" Margin="0,5,0,0" />
+                <dxco:SimpleButton Text = "EXPLORING NOW" Margin="0,15"
+                 Command="{Binding GoToProductPageCommand}"
+                 BorderThickness="2"
+                 BorderColor="Beige"
+                 PressedBorderColor="Beige"
+                 DisabledBorderColor="DarkGray"
+                 TextColor="Beige"
+                 PressedTextColor="White"
+                 DisabledTextColor="DarkGray"
+                 IconColor="Beige"
+                 PressedIconColor="White"
+                 DisabledIconColor="DarkGray"
+                 BackgroundColor="Black"
+                 DisabledBackgroundColor="Beige"
+                 PressedBackgroundColor="Gray"
+                 CornerMode = "Round"        
+                 CornerRadius="10"
+                    />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

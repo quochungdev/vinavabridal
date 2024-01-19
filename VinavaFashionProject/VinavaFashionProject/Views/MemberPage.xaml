@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:viewmodel="clr-namespace:VinavaFashionProject.ViewModels"
+             x:DataType="viewmodel:MemberPageViewModels"
+             Shell.NavBarIsVisible="False"
+             x:Class= "VinavaFashionProject.Views.MemberPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="0,0" Spacing="0" BackgroundColor="White">
+            <!-- Nút đăng nhập và đăng ký -->
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsNotLoggedIn}">
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="50"
+                    Source="user"
+                    WidthRequest="100">
+                    <Image.Clip>
+                        <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                    </Image.Clip>
+                </Image>
+                <VerticalStackLayout>
+                    <Label VerticalOptions="Center" FontSize="Large" TextColor="Black" FontAttributes="Bold" Margin="5" Text="Welcome to Vinava Bridal" />
+                    <StackLayout Orientation="Horizontal">
+                        <dxco:SimpleButton Margin="5" Text = "Sign In" 
+                        WidthRequest="100"
+                        BorderThickness="2"
+                        BorderColor="Black"
+                        PressedBorderColor="DarkOrange"
+                        DisabledBorderColor="DarkGray"
+                        TextColor="Black"
+                        PressedTextColor="White"
+                        DisabledTextColor="DarkGray"
+                        IconColor="Black"
+                        PressedIconColor="White"
+                        DisabledIconColor="DarkGray"
+                        BackgroundColor="#2AC7BF"
+                        DisabledBackgroundColor="Brown"
+                        PressedBackgroundColor="Gray"
+                        CornerMode = "Round"        
+                        CornerRadius="10"
+                        Command="{Binding TapLoginCommand}"
+                        />
+                        <dxco:SimpleButton Margin="5" Text = "Sign Up" 
+                        WidthRequest="100"      
+                        BorderThickness="2"
+                        BorderColor="Black"
+                        PressedBorderColor="DarkOrange"
+                        DisabledBorderColor="DarkGray"
+                        TextColor="Black"
+                        PressedTextColor="White"
+                        DisabledTextColor="DarkGray"
+                        IconColor="Black"
+                        PressedIconColor="White"
+                        DisabledIconColor="DarkGray"
+                        BackgroundColor="#2AC7BF"
+                        DisabledBackgroundColor="Brown"
+                        PressedBackgroundColor="Gray"
+                        CornerMode = "Round"        
+                        CornerRadius="10"
+                        Command="{Binding TapRegisterCommand}"
+                        />
+                    </StackLayout>
+                </VerticalStackLayout>
+            </StackLayout>
+
+            <dxe:FormGroupItem>
+                <dxe:FormItem Detail="{Binding Email}"
+                                  DetailFontFamily="Roboto" DetailFontSize="14"
+                                  ImageVerticalOptions="Center"
+                                  Padding="0,10"
+                                  IsVisible="{Binding IsLoggedIn}"
+                                  Text="{Binding FullName}"
+                                  TextFontFamily="Roboto"
+                                  TextFontAttributes="Bold"
+                                  TextFontSize="18">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image Margin="0,0,10,0"
+                                Aspect="AspectFit"
+                                HeightRequest="60"
+                                Source="user"
+                                WidthRequest="60">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+            <dxe:FormGroupItem ShowSeparator="True">
+                <dxe:FormItem Text="Account Information"
+                  AllowTap="True"
+                  TapCommand="{Binding AccountPageCommand}"
+                  TextMargin="20,15,4,16"
+                  TextFontSize="15"
+                  TextFontAttributes="None"
+                  ShowArrow="True"
+                  ImageSource="brightness"
+                  ImageColor="#F9C938"
+                  ImageHeight="36"
+                  ImageWidth="36"
+                  ImageMargin="4"
+                  ImageVerticalOptions="Start">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image
+                              Aspect="AspectFit"
+                              HeightRequest="25"
+                              Source="user"
+                              WidthRequest="25">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="20,20" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+            <dxe:FormGroupItem ShowSeparator="True">
+                <dxe:FormItem Text="Order Management"
+                  AllowTap="True"
+                  TapCommand="{Binding GoToOrderPageCommand}"            
+                  TextMargin="20,15,4,16"
+                  TextFontSize="15"
+                  ShowArrow="True"
+                  ImageSource="brightness"
+                  ImageColor="#F9C938"
+                  ImageHeight="36"
+                  ImageWidth="36"
+                  ImageMargin="4"
+                  ImageVerticalOptions="Start">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image
+                          Aspect="AspectFit"
+                          HeightRequest="25"
+                          Source="order"
+                          WidthRequest="25">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="20,20" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+            <dxe:FormGroupItem ShowSeparator="True">
+                <dxe:FormItem Text="Address"
+                  AllowTap="True"
+                  TapCommand="{Binding GoToAddressCommand}"      
+                  TextMargin="20,15,4,16"
+                  TextFontSize="15"
+                  ShowArrow="True"
+                  ImageSource="brightness"
+                  ImageColor="#F9C938"
+                  ImageHeight="36"
+                  ImageWidth="36"
+                  ImageMargin="4"
+                  ImageVerticalOptions="Start">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image
+              Aspect="AspectFit"
+              HeightRequest="25"
+              Source="location"
+              WidthRequest="25">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="20,20" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+            <dxe:FormGroupItem ShowSeparator="True">
+                <dxe:FormItem Text="Favourite Product"
+               AllowTap="True"
+               TapCommand="{Binding GoToFavouriteProductCommand}"      
+               TextMargin="20,15,4,16"
+               TextFontSize="15"
+               ShowArrow="True"
+               ImageSource="heart_click_32"
+               ImageColor="#F9C938"
+               ImageHeight="36"
+               ImageWidth="36"
+               ImageMargin="4"
+               ImageVerticalOptions="Start">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image
+                           Aspect="AspectFit"
+                           HeightRequest="25"
+                           Source="heart_32"
+                           WidthRequest="25">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="20,20" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+            <dxe:FormGroupItem ShowSeparator="True">
+                <dxe:FormItem Text="Your Offer"
+                  TextMargin="20,15,4,16"
+                  TextFontSize="15"
+                  ShowArrow="True"
+                  ImageSource="brightness"
+                  ImageColor="#F9C938"
+                  ImageHeight="36"
+                  ImageWidth="36"
+                  ImageMargin="4"
+                  ImageVerticalOptions="Start">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image
+              Aspect="AspectFit"
+              HeightRequest="25"
+              Source="star"
+              WidthRequest="25">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="20,20" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+            <dxe:FormGroupItem ShowSeparator="True">
+                <dxe:FormItem Text="Notification"
+                  TextMargin="20,15,4,16"
+                  TextFontSize="15"
+                  ShowArrow="True"
+                  ImageSource="brightness"
+                  ImageColor="#F9C938"
+                  ImageHeight="36"
+                  ImageWidth="36"
+                  ImageMargin="4"
+                  ImageVerticalOptions="Start">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image
+              Aspect="AspectFit"
+              HeightRequest="25"
+              Source="notification_2"
+              WidthRequest="25">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="20,20" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+            <dxe:FormGroupItem ShowSeparator="True">
+                <dxe:FormItem Text="Appropriate Size"
+                  AllowTap="True"
+                  TapCommand="{Binding GoToSizeInformationCommand}"
+                  TextMargin="20,15,4,16"
+                  TextFontSize="15"
+                  ShowArrow="True"
+                  ImageSource="brightness"
+                  ImageColor="#F9C938"
+                  ImageHeight="36"
+                  ImageWidth="36"
+                  ImageMargin="4"
+                  ImageVerticalOptions="Start">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image
+              Aspect="AspectFit"
+              HeightRequest="25"
+              Source="ruler"
+              WidthRequest="25">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="20,20" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+            <dxe:FormGroupItem  IsVisible="{Binding IsLoggedIn}" ShowSeparator="True">
+                <dxe:FormItem Text="Log Out"
+                      TapCommand="{Binding LogOutCommand}"      
+                      AllowTap="True"
+                      TextMargin="20,15,4,16"
+                      TextFontSize="15"
+                      ShowArrow="True"
+                      ImageSource="brightness"
+                      ImageColor="#F9C938"
+                      ImageHeight="36"
+                      ImageWidth="36"
+                      ImageMargin="4"
+                      ImageVerticalOptions="Start">
+                    <dxe:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image
+                          Aspect="AspectFit"
+                          HeightRequest="25"
+                          Source="user_32"
+                          WidthRequest="25">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="20,20" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dxe:FormItem.ImageTemplate>
+                </dxe:FormItem>
+            </dxe:FormGroupItem>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

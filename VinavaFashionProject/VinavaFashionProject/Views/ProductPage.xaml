@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VinavaFashionProject.Views.ProductPage"
+             xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodel="clr-namespace:VinavaFashionProject.ViewModels"
+             Title="ProductPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="search"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="dxc:ShimmerView" x:Key="ShimmerEffect">
+                <Setter Property="WaveWidth" Value="0.7"/>
+                <Setter Property="WaveOpacity" Value="0.8"/>
+                <Setter Property="WaveDuration" Value="0:0:0.8"/>
+            </Style>
+
+            <Style TargetType="Border" x:Key="ShimmerElementAction">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#DCD9E1, Dark=#585560}"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 25"/>
+                <Setter Property="WidthRequest" Value="100"/>
+                <Setter Property="HeightRequest" Value="100"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+            </Style>
+            <Style TargetType="Border" x:Key="ShimmerElementCard">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#DCD9E1, Dark=#585560}"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 25"/>
+                <Setter Property="WidthRequest" Value="250"/>
+                <Setter Property="HeightRequest" Value="150"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+            </Style>
+            <Style TargetType="Ellipse" x:Key="ShimmerElementAvatar">
+                <Setter Property="Fill" Value="{AppThemeBinding Light=#DCD9E1, Dark=#585560}"/>
+                <Setter Property="WidthRequest" Value="60"/>
+                <Setter Property="HeightRequest" Value="60"/>
+            </Style>
+            <Style TargetType="Border" x:Key="ShimmerElementRow">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#DCD9E1, Dark=#585560}"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 12"/>
+                <Setter Property="HeightRequest" Value="24"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+            </Style>
+
+            <Style TargetType="Border" x:Key="ElementAction">
+                <Setter Property="StrokeShape" Value="RoundRectangle 25"/>
+                <Setter Property="WidthRequest" Value="100"/>
+                <Setter Property="HeightRequest" Value="90"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TextAction">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#101010, Dark=#FFFFFF}"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="15"/>
+            </Style>
+
+            <Style TargetType="Border" x:Key="ElementCard">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#FAF8FE, Dark=#433F49}"/>
+                <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
+                <Setter Property="WidthRequest" Value="240"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TextCardTitle">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#101010, Dark=#FFFFFF}"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TextCardCaption">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#5F5D65, Dark=#A6A2AC}"/>
+                <Setter Property="LineBreakMode" Value="TailTruncation"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+
+            <Style TargetType="Label" x:Key="TextHeader">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#101010, Dark=#FFFFFF}"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TextUserName">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#101010, Dark=#FFFFFF}"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TextUserCaption">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=#5F5D65, Dark=#A6A2AC}"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout BackgroundColor="White">
+        <!--<ActivityIndicator IsRunning="{Binding IsBusy}" Color="Black" />-->
+        <dxc:ShimmerView Style="{StaticResource ShimmerEffect}" IsLoading="{Binding IsBusy}">
+            <dxc:ShimmerView.Content>
+                <Border StrokeThickness="0" Stroke="Transparent" BackgroundColor="White">
+                    <dxe:TextEdit x:Name="EditText_Search" EndIcon="search" EndIconCommand="{Binding SearchProductsCommand}" PlaceholderText="Search Products" TextFontSize="14" 
+                          ClearIconColor="Black" Text="{Binding Keyword}"
+                          TextVerticalAlignment="Center"
+                          BackgroundColor="{AppThemeBinding Light=White, Dark=#322F37}" BorderThickness="1"
+                          BorderColor="{AppThemeBinding Light=Black, Dark=#938F99}" BoxPadding="20,6,10,6" 
+                          PlaceholderColor="{AppThemeBinding Light=Black, Dark=#938F99}" 
+                          EndIconColor="{AppThemeBinding Light=Black, Dark=#CAC4D0}" 
+                          FocusedBorderColor="Transparent" 
+                          CornerRadius="5" HeightRequest="35" Margin="15,10,15,10" 
+                          TextColor="{AppThemeBinding Light=Black, Dark=#E6E1E5}"/>
+                </Border>
+            </dxc:ShimmerView.Content>
+            <dxc:ShimmerView.LoadingView>
+                <Border Style="{StaticResource ShimmerElementRow}" Grid.Column="1" HeightRequest="40" Margin="20,20,20,10" />
+            </dxc:ShimmerView.LoadingView>
+        </dxc:ShimmerView>
+
+        <dxc:ShimmerView Style="{StaticResource ShimmerEffect}" IsLoading="{Binding IsBusy}">
+            <dxc:ShimmerView.Content>
+                <Grid RowDefinitions="Auto, 0" Margin="5,-5,5,-10">
+                    <dxe:ChipGroup IsMultiline="False" ChipTap="OnFilterChipGroupTap" x:Name="filterChipGroup" Background="Transparent">
+                        <dxe:Chip Text="New Product ▼">
+                        </dxe:Chip>
+                        <dxe:Chip Text="Discount ▼">
+                        </dxe:Chip>
+                        <dxe:Chip Text="Accessory ▼">
+                        </dxe:Chip>
+                        <dxe:Chip Text="Arrange ▼">
+                        </dxe:Chip>
+                    </dxe:ChipGroup>
+
+                    <dxcv:DXCollectionView ItemsSource="{Binding Categories}" x:Name="tutorsCollection" ItemSpacing="10" Grid.Row="1">
+                        <dxcv:DXCollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="10,0" HeightRequest="90">
+                                    <Grid ColumnDefinitions="Auto,Auto, *,Auto" RowSpacing="0" RowDefinitions="Auto,Auto" BackgroundColor="Transparent">
+                                        <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" Margin="10,10,0,0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                        <Label Text="Category" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </dxcv:DXCollectionView.ItemTemplate>
+                    </dxcv:DXCollectionView>
+
+                    <dxco:BottomSheet x:Name="filterBottomSheet"  GrabberColor="{AppThemeBinding Light=#79747E, Dark=#938F99}">
+                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,*">
+                            <dxco:SimpleButton Text="Close"
+                                                FontSize="16"
+                                                FontAttributes="None"
+                                                TextColor="White"
+                                                PressedBorderColor="DarkOrange"
+                                                PressedTextColor="White"
+                                                DisabledTextColor="DarkGray"
+                                                IconColor="Black"
+                                                PressedIconColor="Cornsilk"
+                                                DisabledIconColor="Black"
+                                                BackgroundColor="Black"
+                                                DisabledBackgroundColor="Brown"
+                                                CornerMode="Round"
+                                                CornerRadius="5" 
+                                                Clicked="OnCloseBottomSheetClicked" HorizontalOptions="Start" 
+                                        Margin="20,10,0,0" Grid.Column="0"/>
+                            <dxco:TabView x:Name="filterTabView" HeaderPanelBackgroundColor="Transparent" Grid.Row="1" 
+                                  Grid.ColumnSpan="2" Margin="0,10,0,0" ItemHeaderTapped="FilterTabHeaderTapped"
+                                  HeaderPanelPadding="0" ItemHeaderPadding="0" HeaderPanelMinHeight="30">
+                                <dxco:TabViewItem HeaderText="New Products" HeaderWidth="*" HeaderPadding="0,0,0,20">
+                                    <Frame>
+                                        <ListView x:Name="lvCategories" ItemsSource="{Binding Categories}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <RadioButton GroupName="rdbFilter" 
+                                                             CheckedChanged="OnCategoryRadioButtonCheckedChanged"
+                                                             Content="{Binding Name}" />
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Frame>
+                                </dxco:TabViewItem>
+                                <dxco:TabViewItem HeaderText="Discount" HeaderWidth="*" HeaderPadding="0,0,0,20">
+                                    <Frame>
+                                        <ListView x:Name="lvSaleDiscount" ItemsSource="{Binding UniqueSaleDiscounts}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <RadioButton GroupName="rdbFilter"
+                                                             Content="{Binding}"
+                                                             CheckedChanged="OnClickedRadioButton"
+                                                             >
+                                                        </RadioButton>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Frame>
+                                </dxco:TabViewItem>
+                                <dxco:TabViewItem HeaderText="Accessory" HeaderWidth="*" HeaderPadding="0,0,0,20">
+                                    <Frame>
+                                        <StackLayout>
+                                            <RadioButton GroupName="rdbFilter"
+                                     Content="Accessory"
+                                     CheckedChanged="OnAccessoryRadioButtonCheckedChanged"                                                  
+                                      />
+                                        </StackLayout>
+                                    </Frame>
+                                </dxco:TabViewItem>
+                                <dxco:TabViewItem HeaderText="Arrange" HeaderWidth="*" HeaderPadding="0,0,0,20">
+                                    <Frame>
+                                        <StackLayout>
+                                            <RadioButton GroupName="rdbFilter"
+                                     Content="Prices gradually increase"
+                                     CheckedChanged="OnPriceAscRadioButtonCheckedChanged"                     
+                                      />
+                                            <RadioButton GroupName="rdbFilter"
+                                     Content="Prices gradually decrease"
+                                     CheckedChanged="OnPriceDescRadioButtonCheckedChanged"           
+                                      />
+                                        </StackLayout>
+                                    </Frame>
+                                </dxco:TabViewItem>
+                            </dxco:TabView>
+                        </Grid>
+                    </dxco:BottomSheet>
+                </Grid>
+            </dxc:ShimmerView.Content>
+            <dxc:ShimmerView.LoadingView>
+                <Grid ColumnDefinitions="*,*,*" HeightRequest="50" Margin="0,10">
+                    <Border Style="{StaticResource ShimmerElementRow}" HeightRequest="30" Grid.Column="0" Margin="24,0,0,0" />
+                    <Border Style="{StaticResource ShimmerElementRow}" HeightRequest="30" Grid.Column="1" />
+                    <Border Style="{StaticResource ShimmerElementRow}" HeightRequest="30" Grid.Column="2" Margin="0,0,24,0" />
+                    <Border Style="{StaticResource ShimmerElementRow}" HeightRequest="30" Grid.Column="3" Margin="0,0,24,0" />
+                </Grid>
+            </dxc:ShimmerView.LoadingView>
+        </dxc:ShimmerView>
+
+        <dxc:ShimmerView Style="{StaticResource ShimmerEffect}" IsLoading="{Binding IsBusy}">
+            <dxc:ShimmerView.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <CollectionView Grid.Row="0" HeightRequest="600" VerticalScrollBarVisibility="Always" RemainingItemsThreshold="1"
+                                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreProductsCommand}"
+                                        ItemsLayout="VerticalGrid, 2" 
+                                        ItemsSource="{Binding Products}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="3" Margin="10" BackgroundColor="White" CornerRadius="5">
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                    Tapped="OnProductTapped"
+                                                    NumberOfTapsRequired="1"/>
+                                        </StackLayout.GestureRecognizers>
+                                        <Image Source="{Binding ImageSourceData}" WidthRequest="240" HeightRequest="300" Aspect="AspectFill"></Image>
+                                        <StackLayout VerticalOptions="CenterAndExpand" Orientation="Vertical" Padding="5" Margin="5,0,0,0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Label Grid.Row="0"
+                                                  Margin="0,5"
+                                                  Text="{Binding Name}"
+                                                  TextColor="Black"
+                                                  FontSize="15"
+                                                   />
+                                                <Label Grid.Row="1" Margin="-5,5,0,0" FontSize="Body" VerticalTextAlignment="Center"
+                                             Text="{Binding Price, StringFormat='${0}'}" FontAttributes="Bold" />
+                                            </Grid>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <ActivityIndicator IsRunning="{Binding IsRefreshing}" 
+                                       Color="Black" VerticalOptions="EndAndExpand"  HorizontalOptions="Center"/>
+                </Grid>
+            </dxc:ShimmerView.Content>
+
+            <dxc:ShimmerView.LoadingView>
+                <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, *" ColumnSpacing="16" Margin="24,0">
+                    <!-- First item -->
+                    <Border Style="{StaticResource ShimmerElementCard}" Margin="0,0,24,24" WidthRequest="210" HeightRequest="300" Grid.Column="0" Grid.Row="0" />
+                    <!-- Second item -->
+                    <Border Style="{StaticResource ShimmerElementCard}" Margin="24,0,0,24" WidthRequest="210" HeightRequest="300"  Grid.Column="1" Grid.Row="0" />
+                    <!-- Third item (starts on the second row) -->
+                    <Border Style="{StaticResource ShimmerElementCard}" Margin="0,0,24,0" WidthRequest="210" HeightRequest="300" Grid.Column="0" Grid.Row="1" />
+                    <!-- Fourth item (starts on the second row) -->
+                    <Border Style="{StaticResource ShimmerElementCard}" Margin="24,0,0,0" WidthRequest="210" HeightRequest="300" Grid.Column="1" Grid.Row="1" />
+                    <!-- Add more items here if needed -->
+                </Grid>
+            </dxc:ShimmerView.LoadingView>
+        </dxc:ShimmerView>
+    </StackLayout>
+
+</ContentPage>

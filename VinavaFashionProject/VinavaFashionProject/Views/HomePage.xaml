@@ -1,0 +1,155 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="{Binding Title}"
+             IconImageSource="info"
+             BackgroundColor="White"
+             xmlns:compat="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+             xmlns:dxsch="clr-namespace:DevExpress.Maui.Scheduler;assembly=DevExpress.Maui.Scheduler"
+             xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dxdf="clr-namespace:DevExpress.Maui.DataForm;assembly=DevExpress.Maui.Editors"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="true"
+             xmlns:local="clr-namespace:VinavaFashionProject.ViewModels"
+             x:Class= "VinavaFashionProject.Views.HomePage">
+    <!--<ContentPage.BindingContext>
+        <local:ProductViewModel />
+    </ContentPage.BindingContext>-->
+
+    <compat:RelativeLayout>
+        <AbsoluteLayout>
+            <ScrollView  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="1,1,1,1">
+                <StackLayout>
+
+                    <CarouselView  ItemsSource="{Binding CarouselList}" x:Name="carouselView">
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Image HeightRequest="500" WidthRequest="500" Source="{Binding}" Aspect="AspectFill"  />
+                                </StackLayout>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <StackLayout Margin="0,20">
+                        <Label Text="NEW ARRIVAL" FontAttributes="Bold" FontSize="35" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <CollectionView ItemsLayout="VerticalGrid, 2" ItemsSource="{Binding Products}" Margin="0,0,0,20">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Frame Padding="3" Margin="10" BackgroundColor="White" CornerRadius="5">
+                                        <Grid>
+                                            <StackLayout Orientation="Vertical">
+                                                <StackLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer
+                                                    Tapped="OnProductTapped"
+                                                    NumberOfTapsRequired="1"/>
+                                                </StackLayout.GestureRecognizers>
+                                                <Image Source="{Binding ImageSourceData}" WidthRequest="200" HeightRequest="300" Aspect="AspectFill">
+                                                </Image>
+                                                <StackLayout VerticalOptions="CenterAndExpand" Orientation="Vertical" Padding="5">
+                                                    <Label
+                                                      Margin="0,5"
+                                                      Text="{Binding Name}"
+                                                      TextColor="Black"
+                                                      FontSize="15"
+                                                      />
+                                                    <Label Margin="-5,5,0,0" FontSize="Body" VerticalTextAlignment="Center"
+                                                     WidthRequest="185"  Text="{Binding Price, StringFormat='${0}'}" FontAttributes="Italic" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+
+                        <dxco:SimpleButton Margin="10" Text = "SHOW MORE" BackgroundColor="#2AC7BF"
+                   Command="{Binding GoToProductPageCommand}"
+                   Icon = "info" 
+                   BorderThickness="2"
+                   BorderColor="Black"
+                   PressedBorderColor="DarkOrange"
+                   DisabledBorderColor="DarkGray"
+                   TextColor="Black"
+                   PressedTextColor="White"
+                   DisabledTextColor="DarkGray"
+                   IconColor="Black"
+                   PressedIconColor="White"
+                   DisabledIconColor="DarkGray"
+                   DisabledBackgroundColor="Brown"
+                   PressedBackgroundColor="Gray"
+                   CornerMode = "Round"        
+                   CornerRadius="10"
+                   />
+                    </StackLayout>
+                 <StackLayout>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnInstagramTapped" />
+                        </StackLayout.GestureRecognizers>
+                    <StackLayout HorizontalOptions="Center" Margin="0,15,0,0">
+                        <Label Text="INSTAGRAM" FontAttributes="Bold" TextTransform="Uppercase"/>
+                        <Label Padding="5,0,0,0" Text="@vinava_bridal"/>
+                    </StackLayout>
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="product1.jpg" Aspect="AspectFill" Grid.Row="0" Grid.Column="0" Margin="5" />
+
+                        <!-- Hình ảnh sản phẩm 2 -->
+                        <Image Source="product2.jpg" Aspect="AspectFill" Grid.Row="0" Grid.Column="1" Margin="5" />
+
+                        <!-- Hình ảnh sản phẩm 3 -->
+                        <Image Source="product3.jpg" Aspect="AspectFill" Grid.Row="0" Grid.Column="2" Margin="5" />
+
+                        <!-- Hình ảnh sản phẩm 4 -->
+                        <Image Source="product4.jpg" Aspect="AspectFill" Grid.Row="1" Grid.Column="0" Margin="5" />
+
+                        <!-- Hình ảnh sản phẩm 5 -->
+                        <Image Source="product5.jpg" Aspect="AspectFill" Grid.Row="1" Grid.Column="1" Margin="5" />
+
+                        <!-- Hình ảnh sản phẩm 6 -->
+                        <Image Source="product6.jpg" Aspect="AspectFill" Grid.Row="1" Grid.Column="2" Margin="5" />
+
+                        <!-- Hình ảnh sản phẩm 7 -->
+                        <Image Source="product7.jpg" Aspect="AspectFill" Grid.Row="2" Grid.Column="0" Margin="5" />
+
+                        <!-- Hình ảnh sản phẩm 8 -->
+                        <Image Source="product8.jpg" Aspect="AspectFill" Grid.Row="2" Grid.Column="1" Margin="5" />
+
+                        <!-- Hình ảnh sản phẩm 9 -->
+                        <Image Source="product9.jpg" Aspect="AspectFill" Grid.Row="2" Grid.Column="2" Margin="5" />
+                    </Grid>
+                 </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </AbsoluteLayout>
+
+        <StackLayout Orientation="Horizontal" BackgroundColor="Transparent"
+             compat:RelativeLayout.WidthConstraint="{compat:ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.3}"
+             compat:RelativeLayout.XConstraint="{compat:ConstraintExpression Type=RelativeToParent, Property=Width, Factor=0.85}"
+             compat:RelativeLayout.YConstraint="{compat:ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0}">
+            <Frame BackgroundColor="White" CornerRadius="50" HeightRequest="40" WidthRequest="40" Margin="5">
+                <ImageButton Command="{Binding GoToCartCommand}" Source="cart.jpg" Aspect="AspectFill" HeightRequest="40" WidthRequest="40" />
+            </Frame>
+            <!--<Frame BackgroundColor="White" CornerRadius="50" HeightRequest="40" WidthRequest="40" Margin="5">
+                <Image Source="notification.png" Aspect="AspectFit" HeightRequest="40" WidthRequest="40" />
+            </Frame>
+            <Frame BackgroundColor="White" CornerRadius="50" HeightRequest="40" WidthRequest="40" Margin="5">
+                <Image Source="notification.png" Aspect="AspectFit" HeightRequest="40" WidthRequest="40" />
+            </Frame>
+            <Frame BackgroundColor="White" CornerRadius="50" HeightRequest="40" WidthRequest="40" Margin="5">
+                <Image Source="notification.png" Aspect="AspectFit" HeightRequest="40" WidthRequest="40" />
+            </Frame>-->
+        </StackLayout>
+    </compat:RelativeLayout>
+</ContentPage>
