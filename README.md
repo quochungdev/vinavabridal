@@ -1,21 +1,21 @@
-# Product Ordering App - Vinava Bridal
+# Product Ordering App🔥 - Vinava Bridal
 Built a comprehensive mobile application from scratch for presenting and ordering the
 company’s range of products. Users can log in, view products, select filters that suit their needs, save products,
 place orders and make payments.
-• Undertook the responsibility of developing and deploying a unique mobile application to showcase and facilitate the
+- Undertook the responsibility of developing and deploying a unique mobile application to showcase and facilitate the
 ordering of the company’s products.
-• Including outstanding functions: Payment method by PayPal (using Paypal invoice sent to the customer’s email
+- Including outstanding functions: Payment method by PayPal (using Paypal invoice sent to the customer’s email
 registered on the application), Payment method by QRCode.
-• Implemented a robust system for generating QR payment codes, utilizing a custom string concatenation approach
+- Implemented a robust system for generating QR payment codes, utilizing a custom string concatenation approach
 to format the necessary transaction details.
-• Conducted testing, debugging, and deployed the application on major mobile platforms (iOS and Android) using
+- Conducted testing, debugging, and deployed the application on major mobile platforms (iOS and Android) using
 Sentry.
-• Developed and integrated a CRC calculation function in .NET to ensure data integrity in the QRCode generation
+- Developed and integrated a CRC calculation function in .NET to ensure data integrity in the QRCode generation
 process.
-• Construction, database design and interface design using DevExpress.
-• Proficient in configuring and managing domain names for applications, including DNS settings, creating and
+- Construction, database design and interface design using DevExpress.
+- Proficient in configuring and managing domain names for applications, including DNS settings, creating and
 configuring necessary ports to set up servers for applications
-• Currently the application - Vinava Bridal is in closed Testing and waiting for Google Play approval
+- Currently the application - Vinava Bridal is in closed Testing and waiting for Google Play approval
 
 # Application images
 ![a1](https://github.com/quochungdev/vinavabridal/assets/89074949/4126a18f-5c46-442d-8f9f-7e57952c2e43)
