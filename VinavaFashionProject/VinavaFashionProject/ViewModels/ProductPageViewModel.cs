@@ -229,14 +229,10 @@ namespace VinavaFashionProject.ViewModels
                         UniqueSaleDiscounts = new ObservableCollection<string>(formattedDiscounts);
 
                     }
-                    else
-                    {
-                        throw new ArgumentNullException(nameof(uniqueSaleDiscounts), "Giá trị không thể là null");
-                    }
                 }
                 else
                 {
-                    throw new ArgumentNullException(nameof(products), "Giá trị không thể là null");
+                    await Shell.Current.DisplayAlert("Error", "Can not find Products", "Ok");
                 }
             });
         }

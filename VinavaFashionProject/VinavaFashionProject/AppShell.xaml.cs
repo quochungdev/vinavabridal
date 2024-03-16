@@ -14,6 +14,7 @@ namespace VinavaFashionProject
             Routing.RegisterRoute(nameof(VerifyOTPPage), typeof(VerifyOTPPage));
             Routing.RegisterRoute(nameof(ResetPasswordPage), typeof(ResetPasswordPage));
             Routing.RegisterRoute(nameof(SizeInfoPage), typeof(SizeInfoPage));
+            Routing.RegisterRoute(nameof(ContactPage), typeof(ContactPage));
 
             Routing.RegisterRoute(nameof(MemberPage), typeof(MemberPage));
             Routing.RegisterRoute(nameof(AccountInfoPage), typeof(AccountInfoPage));
@@ -28,6 +29,7 @@ namespace VinavaFashionProject
 
             Routing.RegisterRoute(nameof(PopupImages), typeof(PopupImages));
             Routing.RegisterRoute(nameof(PopupPayPalInfo), typeof(PopupPayPalInfo));
+            Routing.RegisterRoute(nameof(PopupSizeImage), typeof(PopupSizeImage));
 
             Routing.RegisterRoute(nameof(CartPage), typeof(CartPage));
             Routing.RegisterRoute(nameof(FavouriteProductPage), typeof(FavouriteProductPage));

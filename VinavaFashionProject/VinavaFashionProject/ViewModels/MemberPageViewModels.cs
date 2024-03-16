@@ -39,6 +39,12 @@ public partial class MemberPageViewModels : ObservableObject
     }
 
     [ICommand]
+    async Task GoToContactPage()
+    {
+        await Shell.Current.GoToAsync(nameof(ContactPage));
+    }
+
+    [ICommand]
     async Task GoToSizeInformation()
     {
         if (App.user == null)

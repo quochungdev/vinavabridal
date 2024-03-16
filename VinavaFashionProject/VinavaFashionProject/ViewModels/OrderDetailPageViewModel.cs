@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using QRCoder;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +26,18 @@ namespace VinavaFashionProject.ViewModels
         [ObservableProperty]
         private ObservableCollection<Order> _orderDetails;
 
+        [ObservableProperty]
+        private string _qrCodeData;
+
+        [ObservableProperty]
+        private byte[] _qrCodeImageBytes;
+
+        [ObservableProperty]
+        private ImageSource _qrCodeImage;
+
+        [ObservableProperty]
+        private BankAccount _bank;
+
         public OrderDetailPageViewModel()
         {
         }
@@ -40,6 +54,7 @@ namespace VinavaFashionProject.ViewModels
             }
 
             OrderVM = order;
+            CreateQRCode();
         }
 
         private void UpdateImageSource(OrderDetail orderDetail)
@@ -51,6 +66,43 @@ namespace VinavaFashionProject.ViewModels
 
                 orderDetail.Product.ImageSourceData = imageSource;
             }
+        }
+
+        [ICommand]
+        private void GenerateQRCode(string qrCodeData)
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeObj = qrGenerator.CreateQrCode(qrCodeData, QRCodeGenerator.ECCLevel.Q);
+            PngByteQRCode qrCode = new PngByteQRCode(qrCodeObj);
+            byte[] qrCodeBytes = qrCode.GetGraphic(20);
+            QrCodeImage = ImageSource.FromStream(() => new MemoryStream(qrCodeBytes));
+        }
+
+        private void GenerateVietQRCode(VietQR vietQR)
+        {
+            string qrCodeData = $"{vietQR.payloadFormatIndicator}{vietQR.consumerAccountInformation}{vietQR.transactionCurrency}{vietQR.transactionAmount}{vietQR.countryCode}{vietQR.additionalDataFieldTemplate}";
+
+            string crc = vietQR.CreatePaymentCRC(qrCodeData);
+
+            vietQR.crc = vietQR.QRCRC + crc;
+
+            string qrCodeCRC = qrCodeData + vietQR.crc;
+
+            Console.WriteLine(vietQR.consumerAccountInformation);
+            GenerateQRCode(qrCodeCRC);
+        }
+
+        [ICommand]
+        private async void CreateQRCode()
+        {
+            decimal exchangeRate = await _orderService.GetExchangeRate("USD");
+            decimal totalAmountVND = OrderVM.TotalAmount * exchangeRate;
+
+            BankAccount ba = await _orderService.GetBankAccount();
+            Bank = ba;
+            VietQR myVietQR = new VietQR();
+            myVietQR.SetTransactionAmount(totalAmountVND).SetBeneficiaryOrganization("970407", "19050224869019").SetAdditionalDataFieldTemplate($"THANH TOAN DON HANG {OrderId} TAI VINAVA");
+            GenerateVietQRCode(myVietQR);
         }
     }
 }

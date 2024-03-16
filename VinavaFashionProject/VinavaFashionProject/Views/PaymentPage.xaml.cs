@@ -48,7 +48,7 @@ public partial class PaymentPage : ContentPage
     {
         if (sender is RadioButton radioButton && radioButton.IsChecked)
         {
-            _viewmodel.SelectedPaymentMethod = PaymentMethod.Cash;
+            _viewmodel.SelectedPaymentMethod = PaymentMethod.QRCode;
             _viewmodel.IsRead = true;
             IsPaymentByQRCodeChecked = true;
             IsPaymentByPayPalChecked = false;

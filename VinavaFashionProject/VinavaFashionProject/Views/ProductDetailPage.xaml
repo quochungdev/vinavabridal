@@ -163,17 +163,22 @@
                     <!--Phone and Chat-->
                     <StackLayout Orientation="Horizontal" Margin="0,0,10,10">
                         <StackLayout Orientation="Horizontal" Margin="5,0,20,0">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPhoneClicked" />
+                            </StackLayout.GestureRecognizers>
                             <ImageButton Source="phone_32" />
                             <Label Text="Hotline" VerticalOptions="Center" Margin="5,0,0,0"/>
                         </StackLayout>
                         <StackLayout Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnChatClicked" />
+                            </StackLayout.GestureRecognizers>
                             <ImageButton Source="chat_32"/>
-                            <Label Text="Hotline" VerticalOptions="Center" Margin="5,0,0,0"/>
+                            <Label Text="Chat" VerticalOptions="Center" Margin="5,0,0,0"/>
                         </StackLayout>
                         <StackLayout>
                             <dxe:FormGroupItem ShowSeparator="True">
                                 <dxe:FormItem Text="Find the right size"
-                                  AllowTap="True"
                                   TextMargin="35,15,4,16"
                                   TextFontSize="15"
                                   TextFontAttributes="None"
@@ -184,6 +189,9 @@
                                   ImageWidth="36"
                                   ImageMargin="4"
                                   ImageVerticalOptions="Start">
+                                    <dxe:FormItem.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnPopupSizeImageClicked" />
+                                    </dxe:FormItem.GestureRecognizers>
                                 </dxe:FormItem>
                             </dxe:FormGroupItem>
                         </StackLayout>

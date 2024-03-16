@@ -36,12 +36,12 @@
                                         <DataTemplate>
                                             <StackLayout>
                                                 <StackLayout Margin="0,2" Orientation="Horizontal">
-                                                    <Label Text="{Binding Address.FullName}"/>
-                                                    <Label Text="{Binding Address.PhoneNumber, StringFormat=' - {0}'}"/>
+                                                    <Label FontAttributes="Bold" Text="Order ID: "/>
+                                                    <Label FontAttributes="Bold" Text="{Binding Id}"/>
                                                 </StackLayout>
                                                 <StackLayout Margin="0,2" Orientation="Horizontal">
-                                                    <Label Text="Order ID: "/>
-                                                    <Label Text="{Binding Id}"/>
+                                                    <Label Text="{Binding Address.FullName}"/>
+                                                    <Label Text="{Binding Address.PhoneNumber, StringFormat=' - {0}'}"/>
                                                 </StackLayout>
                                                 <StackLayout Margin="0,2" Orientation="Horizontal">
                                                     <Label Text="Order Date: "/>

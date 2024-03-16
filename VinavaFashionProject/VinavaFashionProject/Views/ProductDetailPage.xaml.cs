@@ -69,6 +69,26 @@ public partial class ProductDetailPage : ContentPage
         }
     }
 
+    private async void OnPhoneClicked(object sender, EventArgs e)
+    {
+        string phoneNumber = "037-806-8148";
+
+        // Sử dụng Launcher để gọi điện thoại
+        await Launcher.OpenAsync($"tel:{phoneNumber}");
+    }
+
+    private async void OnChatClicked(object sender, EventArgs e)
+    {
+        Uri uri = new Uri("https://www.facebook.com/thoitrangvinava/");
+        await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+    }
+
+    private void OnPopupSizeImageClicked(object sender, EventArgs e)
+    {
+        var popup = new PopupSizeImage();
+        this.ShowPopup(popup);
+    }
+
     private void OnPopupClicked(object sender, EventArgs e)
     {
         if (BindingContext is ProductDetailPageViewModel vm)

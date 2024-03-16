@@ -5,6 +5,7 @@
              xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              BackgroundColor="White"
+             Shell.BackgroundColor="#2AC7BF"
              Title="Order Detail">
     <ScrollView>
         <VerticalStackLayout>
@@ -48,8 +49,16 @@
                 <StackLayout Margin="0,2" Orientation="Horizontal">
                     <Label TextColor="Black" Text="PAYMENT METHOD"/>
                 </StackLayout>
-                <StackLayout Margin="0,2" Orientation="Horizontal">
+                <StackLayout Margin="0,2" Orientation="Vertical">
                     <Label Text="{Binding OrderVM.PaymentMethod}"/>
+                    <Image Source="{Binding QrCodeImage}" WidthRequest="270" HeightRequest="270" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand"/>
+                </StackLayout>
+                <StackLayout VerticalOptions="CenterAndExpand">
+                    <Label TextColor="Black" FontAttributes="Bold" FontSize="17" Text="*Bank transfer information" HorizontalOptions="StartAndExpand" />
+                    <Label TextColor="Black" Text="{Binding Bank.AccountNumber, StringFormat='Account Number: {0}'}" HorizontalOptions="StartAndExpand" />
+                    <Label TextColor="Black" Text="{Binding Bank.AccountHolderName, StringFormat='Account Holder Name: {0}'}" HorizontalOptions="StartAndExpand"/>
+                    <Label TextColor="Black" Text="{Binding Bank.BankName, StringFormat='Bank Name: {0}'}" HorizontalOptions="StartAndExpand" />
+                    <Label TextColor="Black" Text="{Binding OrderId, StringFormat='Transfer content:  THANH TOAN DON HANG {0} TAI VINAVA'}" HorizontalOptions="StartAndExpand" />
                 </StackLayout>
             </StackLayout>
             <BoxView HeightRequest="1" WidthRequest="500" Margin="0,7" BackgroundColor="BurlyWood" VerticalOptions="EndAndExpand" />
@@ -89,10 +98,6 @@
                 <StackLayout Margin="0,0,0,10" Orientation="Horizontal">
                     <Label TextColor="Black" Text="Provisional: "/>
                     <Label TextColor="Black" Text="{Binding OrderVM.TotalAmount, StringFormat='${0}'}"/>
-                </StackLayout>
-                <StackLayout Margin="0,0,0,10" Orientation="Horizontal">
-                    <Label TextColor="Black" Text="Discount: "/>
-                    <Label TextColor="Black" Text="-$0"/>
                 </StackLayout>
                 <StackLayout Margin="0,0,0,10" Orientation="Horizontal">
                     <Label TextColor="Black" Text="Total: "/>

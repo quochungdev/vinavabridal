@@ -84,8 +84,7 @@ namespace VinavaFashionProject.ViewModels
             BankAccount ba = await _orderService.GetBankAccount();
             Bank = ba;
             VietQR myVietQR = new VietQR();
-            myVietQR.SetTransactionAmount(TotalAmount).SetBeneficiaryOrganization("970407", "19050224869019").SetAdditionalDataFieldTemplate("THANH TOAN DON HANG VINAVA");
-
+            myVietQR.SetTransactionAmount(TotalAmount).SetBeneficiaryOrganization("970407", "19050224869019").SetAdditionalDataFieldTemplate($"THANH TOAN DON HANG {OrderId} TAI VINAVA");
             GenerateVietQRCode(myVietQR);
         }
 

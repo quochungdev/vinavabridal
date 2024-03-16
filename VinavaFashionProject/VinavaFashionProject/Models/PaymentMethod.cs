@@ -8,7 +8,7 @@ namespace VinavaFashionProject.Models
 {
     public enum PaymentMethod
     {
-        Cash,
+        QRCode,
         PayPal
     }
 

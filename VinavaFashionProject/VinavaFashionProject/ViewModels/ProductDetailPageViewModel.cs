@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.ObjectModel;
@@ -71,6 +72,14 @@ public partial class ProductDetailPageViewModel : ObservableObject
     }
 
     [ICommand]
+    void OnPopupSizeImage()
+    {
+        var productDetailPage = new ProductDetailPage();
+        var popup = new PopupSizeImage();
+        productDetailPage.ShowPopup(popup);
+    }
+
+    [ICommand]
     private async Task LoadFavourite()
     {
         if (App.user == null)
@@ -138,15 +147,6 @@ public partial class ProductDetailPageViewModel : ObservableObject
         }
     }
 
-    //public async Task LoadImages()
-    //{
-    //    List<ProductImage> productImages = await _productService.GetProductsImages(ProductId);
-    //    foreach (var product in productImages)
-    //    {
-    //        UpdateImageSource(product);
-    //    }
-    //    ProductImages = new List<ProductImage>(productImages);
-    //}
 
     public List<ProductAttribute> LoadColors(ProductDetail productDetail)
     {
@@ -157,11 +157,6 @@ public partial class ProductDetailPageViewModel : ObservableObject
     {
         return productDetail.ProductAttributes.Where(attr => attr.Attribute?.AttributeName == "size").ToList();
     }
-
-    //private List<ProductImage> GetProductImages(ProductDetail productDetail)
-    //{
-    //    return productDetail.ProductImages.ToList();
-    //}
 
     [ICommand]
     public async Task AddToFavourite()

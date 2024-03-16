@@ -209,7 +209,7 @@
             </dxe:FormGroupItem>
 
             <dxe:FormGroupItem ShowSeparator="True">
-                <dxe:FormItem Text="Your Offer"
+                <dxe:FormItem Text="Contact" AllowTap="True" TapCommand="{Binding GoToContactPageCommand}"
                   TextMargin="20,15,4,16"
                   TextFontSize="15"
                   ShowArrow="True"

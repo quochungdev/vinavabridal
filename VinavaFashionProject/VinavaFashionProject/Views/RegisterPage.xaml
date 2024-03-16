@@ -8,8 +8,8 @@
              xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
              Title="RegisterPage">
     <ScrollView>
-        <VerticalStackLayout BackgroundColor="Cornsilk">
-            <StackLayout BackgroundColor="RoyalBlue" HeightRequest="100">
+        <VerticalStackLayout BackgroundColor="White">
+            <StackLayout BackgroundColor="#2AC7BF" HeightRequest="100">
                 <Frame CornerRadius="50" WidthRequest="100" HeightRequest="100" Margin="0,20,0,0" Padding="0" BorderColor="Black">
                     <Image Source="user.png" WidthRequest="80" HeightRequest="80" VerticalOptions="Center" HorizontalOptions="Center"/>
                 </Frame>

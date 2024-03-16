@@ -107,6 +107,9 @@ namespace VinavaFashionProject
 
             builder.Services.AddSingleton<ResetPasswordPage>();
 
+            builder.Services.AddSingleton<ContactPage>();
+
+
             builder.Services.AddSingleton<ProductPage>();
             builder.Services.AddSingleton<ProductPageViewModel>();
 
@@ -115,6 +118,8 @@ namespace VinavaFashionProject
 
             builder.Services.AddSingleton<PopupImages>();
             builder.Services.AddSingleton<PopupImagesViewModel>();
+
+            builder.Services.AddSingleton<PopupSizeImage>();
 
             builder.Services.AddTransient<CartPage>();
             builder.Services.AddTransient<CartPageViewModel>();
